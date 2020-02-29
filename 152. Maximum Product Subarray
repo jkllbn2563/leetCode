@@ -1,0 +1,18 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        max_n=[0 for i in range(len(nums)+1) ]
+        min_n=[0 for i in range(len(nums)+1) ]
+        max_n[1]=nums[0]
+        min_n[1]=nums[0]
+        for i in range(2,len(nums)+1):
+            max_n[i]=max(max(max_n[i-1]*nums[i-1],min_n[i-1]*nums[i-1]),nums[i-1])
+            min_n[i]=min(min(max_n[i-1]*nums[i-1],min_n[i-1]*nums[i-1]),nums[i-1])
+            print("max",i,max_n[i])
+            print("min",i,min_n[i])
+        return max(max_n)
+            
+        
