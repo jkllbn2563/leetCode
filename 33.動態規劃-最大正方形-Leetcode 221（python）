@@ -1,0 +1,44 @@
+class Solution(object):
+    def maximalSquare(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        #矩陣的行數m,列數n
+        m = len(matrix)
+        if m == 0:
+            return 0
+        n = len(matrix[0])
+        if n == 0:
+            return 0
+        
+        #res用於保存矩陣中最大正方形的邊長
+        res = 0
+        
+        #dp數組用於記錄每一個位置能夠取到的正方形的最大邊長
+        dp = [[0 for i in range(n)] for j in range(m)]
+        
+        #矩陣最左側一列如果存在爲1的元素，那麼該位置的最大正方形邊長就是1
+        #更新整個矩陣的最大正方形邊長res
+        for i in range(0,m):
+            if matrix[i][0] == '1':
+                dp[i][0] = 1
+                res = 1
+                
+        #矩陣最上側一行如果存在爲1的元素，那麼該位置的最大正方形邊長就是1
+        #更新整個矩陣的最大正方形邊長res
+        for j in range(0,n):
+            if matrix[0][j] == '1':
+                dp[0][j] = 1
+                res = 1
+                
+        #遍歷整個矩陣，更新dp數組和res的值
+        for i in range(1,m):
+            for j in range(1,n):
+                #在每個元素的位置都要比較和更新dp數組和res的值
+                if matrix[i][j] == '1':
+                    dp[i][j] = min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1])) + 1
+                    
+                res = max(res,dp[i][j])
+        
+        return res*res
