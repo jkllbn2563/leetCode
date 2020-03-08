@@ -1,0 +1,22 @@
+def com(s,k):
+    sub=[]
+    #print(s)
+    if k==0:return [[]]
+    #if len(s)==k or k==1:
+        #print(s)
+        #return s
+    
+    for index,num in enumerate(s):
+        #tmp=s.copy()
+        #tmp.pop(index)
+        for i in com(s[index+1:],k-1):
+            
+            sub+=[i+[num]]
+    
+    return sub
+
+def com_all(array):
+    comb_list = []
+    for i in range(1,len(array)+1):
+        comb_list+=com(array,i)
+    return comb_list
